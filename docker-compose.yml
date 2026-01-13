@@ -43,38 +43,6 @@ services:
       db:
         condition: service_healthy
     restart: unless-stopped
-    networks:
-      - hubspot_network
-
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    container_name: hubspot_cloudflared
-    command: >
-      /bin/sh -c "
-      if [ -n \"$$CLOUDFLARE_TUNNEL_TOKEN\" ]; then
-        cloudflared tunnel --config /etc/cloudflared/config.yml run
-      else
-        cloudflared tunnel --config /etc/cloudflared/config.yml run
-      fi
-      "
-    volumes:
-      - ./cloudflared-config.yml:/etc/cloudflared/config.yml:ro
-      - ./cloudflared-credentials.json:/etc/cloudflared/credentials.json:ro
-    env_file:
-      - .env
-    environment:
-      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN:-}
-      - TUNNEL_ID=${CLOUDFLARE_TUNNEL_ID:-}
-      - HOSTNAME=${CLOUDFLARE_HOSTNAME:-gigradar.ivertepny.com}
-    depends_on:
-      - web
-    restart: unless-stopped
-    networks:
-      - hubspot_network
-
-networks:
-  hubspot_network:
-    driver: bridge
 
 volumes:
   postgres_data:

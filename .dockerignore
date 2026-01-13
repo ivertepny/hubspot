@@ -47,7 +47,3 @@ Thumbs.db
 # Project specific
 templates/
 *.md
-
-# Cloudflare
-cloudflared-config.yml
-credentials.json

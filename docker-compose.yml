@@ -44,5 +44,13 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: hubspot_cloudflared
+    command: tunnel --url http://web:8000
+    depends_on:
+      - web
+    restart: unless-stopped
+
 volumes:
   postgres_data:

@@ -89,3 +89,7 @@ logs/
 .env.*
 *.env.local
 .envrc
+
+# Cloudflare Tunnel
+cloudflared-credentials.json
+*.cloudflared.json
